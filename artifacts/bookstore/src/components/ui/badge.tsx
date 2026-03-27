@@ -1,43 +1,24 @@
 import * as React from "react"
-import { cva, type VariantProps } from "class-variance-authority"
 
-import { cn } from "@/lib/utils"
+interface BadgeProps extends React.HTMLAttributes<HTMLDivElement> {
+  variant?: 'default' | 'success' | 'warning' | 'info' | 'error' | 'outline';
+}
 
-const badgeVariants = cva(
-  // @replit
-  // Whitespace-nowrap: Badges should never wrap.
-  "whitespace-nowrap inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2" +
-  " hover-elevate ",
-  {
-    variants: {
-      variant: {
-        default:
-          // @replit shadow-xs instead of shadow, no hover because we use hover-elevate
-          "border-transparent bg-primary text-primary-foreground shadow-xs",
-        secondary:
-          // @replit no hover because we use hover-elevate
-          "border-transparent bg-secondary text-secondary-foreground",
-        destructive:
-          // @replit shadow-xs instead of shadow, no hover because we use hover-elevate
-          "border-transparent bg-destructive text-destructive-foreground shadow-xs",
-          // @replit shadow-xs" - use badge outline variable
-        outline: "text-foreground border [border-color:var(--badge-outline)]",
-      },
-    },
-    defaultVariants: {
-      variant: "default",
-    },
-  }
-)
+function Badge({ className = "", variant = "default", ...props }: BadgeProps) {
+  const baseStyles = "inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold transition-colors";
+  
+  const variants = {
+    default: "bg-primary/10 text-primary",
+    success: "bg-emerald-500/10 text-emerald-700 dark:text-emerald-400",
+    warning: "bg-amber-500/10 text-amber-700 dark:text-amber-400",
+    info: "bg-blue-500/10 text-blue-700 dark:text-blue-400",
+    error: "bg-red-500/10 text-red-700 dark:text-red-400",
+    outline: "text-foreground border border-border",
+  };
 
-export interface BadgeProps
-  extends React.HTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof badgeVariants> {}
-
-function Badge({ className, variant, ...props }: BadgeProps) {
   return (
-    <div className={cn(badgeVariants({ variant }), className)} {...props} />
+    <div className={`${baseStyles} ${variants[variant]} ${className}`} {...props} />
   )
 }
 
-export { Badge, badgeVariants }
+export { Badge }

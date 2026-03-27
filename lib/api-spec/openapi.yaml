@@ -1,22 +1,28 @@
 openapi: 3.1.0
 info:
-  # Do not change the title, if the title changes, the import paths will be broken
   title: Api
   version: 0.1.0
-  description: API specification
+  description: Used Books India API
 servers:
   - url: /api
     description: Base API path
 tags:
   - name: health
     description: Health operations
+  - name: categories
+    description: Book categories
+  - name: books
+    description: Books
+  - name: orders
+    description: Orders
+  - name: admin
+    description: Admin operations
 paths:
   /healthz:
     get:
       operationId: healthCheck
       tags: [health]
       summary: Health check
-      description: Returns server health status
       responses:
         "200":
           description: Healthy
@@ -24,6 +30,256 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+
+  /categories:
+    get:
+      operationId: listCategories
+      tags: [categories]
+      summary: List all categories
+      responses:
+        "200":
+          description: List of categories
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Category"
+    post:
+      operationId: createCategory
+      tags: [categories]
+      summary: Create a category (admin)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateCategoryBody"
+      responses:
+        "201":
+          description: Created category
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Category"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /categories/{id}:
+    delete:
+      operationId: deleteCategory
+      tags: [categories]
+      summary: Delete a category (admin)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Deleted
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /books:
+    get:
+      operationId: listBooks
+      tags: [books]
+      summary: List books with optional category filter
+      parameters:
+        - name: categoryId
+          in: query
+          required: false
+          schema:
+            type: integer
+        - name: search
+          in: query
+          required: false
+          schema:
+            type: string
+      responses:
+        "200":
+          description: List of books
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Book"
+    post:
+      operationId: createBook
+      tags: [books]
+      summary: Add a book (admin)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateBookBody"
+      responses:
+        "201":
+          description: Created book
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Book"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /books/{id}:
+    get:
+      operationId: getBook
+      tags: [books]
+      summary: Get a single book
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Book details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Book"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    patch:
+      operationId: updateBook
+      tags: [books]
+      summary: Update a book (admin)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateBookBody"
+      responses:
+        "200":
+          description: Updated book
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Book"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    delete:
+      operationId: deleteBook
+      tags: [books]
+      summary: Delete a book (admin)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Deleted
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /orders:
+    post:
+      operationId: createOrder
+      tags: [orders]
+      summary: Submit an order
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateOrderBody"
+      responses:
+        "201":
+          description: Order created and saved to Notion
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OrderConfirmation"
+        "400":
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /admin/login:
+    post:
+      operationId: adminLogin
+      tags: [admin]
+      summary: Admin login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AdminLoginBody"
+      responses:
+        "200":
+          description: Login successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AdminLoginResponse"
+        "401":
+          description: Invalid password
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
 components:
   schemas:
     HealthStatus:
@@ -34,3 +290,232 @@ components:
       required:
         - status
 
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+      required:
+        - error
+
+    Category:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        slug:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - name
+        - slug
+        - createdAt
+
+    CreateCategoryBody:
+      type: object
+      properties:
+        name:
+          type: string
+        adminPassword:
+          type: string
+      required:
+        - name
+        - adminPassword
+
+    Book:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        author:
+          type: string
+        description:
+          type: ["string", "null"]
+        price:
+          type: number
+        originalPrice:
+          type: ["number", "null"]
+        condition:
+          type: string
+          enum: [like_new, good, fair, poor]
+        imageUrl:
+          type: ["string", "null"]
+        categoryId:
+          type: integer
+        categoryName:
+          type: ["string", "null"]
+        inStock:
+          type: boolean
+        createdAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - title
+        - author
+        - description
+        - price
+        - originalPrice
+        - condition
+        - imageUrl
+        - categoryId
+        - categoryName
+        - inStock
+        - createdAt
+
+    CreateBookBody:
+      type: object
+      properties:
+        title:
+          type: string
+        author:
+          type: string
+        description:
+          type: string
+        price:
+          type: number
+        originalPrice:
+          type: number
+        condition:
+          type: string
+          enum: [like_new, good, fair, poor]
+        imageUrl:
+          type: string
+        categoryId:
+          type: integer
+        inStock:
+          type: boolean
+        adminPassword:
+          type: string
+      required:
+        - title
+        - author
+        - price
+        - condition
+        - categoryId
+        - adminPassword
+
+    UpdateBookBody:
+      type: object
+      properties:
+        title:
+          type: string
+        author:
+          type: string
+        description:
+          type: string
+        price:
+          type: number
+        originalPrice:
+          type: number
+        condition:
+          type: string
+          enum: [like_new, good, fair, poor]
+        imageUrl:
+          type: string
+        categoryId:
+          type: integer
+        inStock:
+          type: boolean
+        adminPassword:
+          type: string
+      required:
+        - adminPassword
+
+    OrderItem:
+      type: object
+      properties:
+        bookId:
+          type: integer
+        title:
+          type: string
+        author:
+          type: string
+        price:
+          type: number
+        quantity:
+          type: integer
+      required:
+        - bookId
+        - title
+        - author
+        - price
+        - quantity
+
+    CreateOrderBody:
+      type: object
+      properties:
+        customerName:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
+        addressLine1:
+          type: string
+        addressLine2:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        pincode:
+          type: string
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/OrderItem"
+        totalAmount:
+          type: number
+        notes:
+          type: string
+      required:
+        - customerName
+        - email
+        - phone
+        - addressLine1
+        - city
+        - state
+        - pincode
+        - items
+        - totalAmount
+
+    OrderConfirmation:
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+        orderId:
+          type: string
+      required:
+        - success
+        - message
+        - orderId
+
+    AdminLoginBody:
+      type: object
+      properties:
+        password:
+          type: string
+      required:
+        - password
+
+    AdminLoginResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        token:
+          type: string
+      required:
+        - success
+        - token

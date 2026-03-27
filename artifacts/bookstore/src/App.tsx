@@ -4,23 +4,41 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/not-found";
 
-const queryClient = new QueryClient();
+// Pages
+import Home from "./pages/Home";
+import Shop from "./pages/Shop";
+import BookDetail from "./pages/BookDetail";
+import Cart from "./pages/Cart";
+import Checkout from "./pages/Checkout";
+import OrderSuccess from "./pages/OrderSuccess";
+import AdminLogin from "./pages/AdminLogin";
+import AdminDashboard from "./pages/AdminDashboard";
 
-function Home() {
-  return (
-    <div className="min-h-screen w-full flex items-center justify-center bg-gray-50">
-      <div className="text-center">
-        <h1 className="text-2xl font-bold text-gray-900">Replit Agent is building...</h1>
-        <p className="mt-2 text-sm text-gray-600">Your app will appear here once it's ready.</p>
-      </div>
-    </div>
-  );
-}
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+      staleTime: 1000 * 60 * 5, // 5 minutes
+    }
+  }
+});
 
 function Router() {
   return (
     <Switch>
+      {/* Public Routes */}
       <Route path="/" component={Home} />
+      <Route path="/shop" component={Shop} />
+      <Route path="/book/:id" component={BookDetail} />
+      <Route path="/cart" component={Cart} />
+      <Route path="/checkout" component={Checkout} />
+      <Route path="/order-success" component={OrderSuccess} />
+      
+      {/* Admin Routes */}
+      <Route path="/admin/login" component={AdminLogin} />
+      <Route path="/admin" component={AdminDashboard} />
+      
+      {/* Fallback */}
       <Route component={NotFound} />
     </Switch>
   );

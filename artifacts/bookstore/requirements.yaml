@@ -1,0 +1,18 @@
+packages:
+  "framer-motion": "For page transitions and smooth UI micro-interactions"
+  "zustand": "For robust global cart and admin authentication state management"
+  "react-hook-form": "For complex form state management in checkout and admin panels"
+  "@hookform/resolvers": "For Zod validation integration with react-hook-form"
+
+images:
+  - path: "artifacts/bookstore/public/images/hero-bg.png"
+    description: "Warm, inviting aesthetic illustration of a cozy Indian bookstore with wooden shelves, plants, and natural sunlight, earthy tones, flat vector art style"
+    aspect_ratio: "16:9"
+  - path: "artifacts/bookstore/public/images/empty-cart.png"
+    description: "Minimalist warm illustration of an empty tote bag or basket with a few stray leaves, earthy tones, transparent background"
+    aspect_ratio: "1:1"
+
+notes:
+  - Using Zustand for Cart and Admin Auth persistence in localStorage.
+  - The API requires 'adminPassword' in the body for most admin POST/PATCH requests.
+  - Wouter is used for all routing.
