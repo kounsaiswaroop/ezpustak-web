@@ -165,7 +165,7 @@ export default function AdminDashboard() {
       {/* Topbar */}
       <div className="bg-foreground text-background py-4 px-6 flex justify-between items-center sticky top-0 z-40">
         <div className="font-display font-bold text-xl flex items-center gap-2">
-          PageTurn <span className="text-primary text-sm font-sans px-2 py-1 bg-primary/20 rounded">Admin Panel</span>
+          EzPustak <span className="text-primary text-sm font-sans px-2 py-1 bg-primary/20 rounded">Admin Panel</span>
         </div>
         <button onClick={handleLogout} className="flex items-center gap-2 text-sm hover:text-primary transition-colors">
           <LogOut className="w-4 h-4" /> Logout

@@ -27,7 +27,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
             <Link href="/" className="flex items-center gap-2 text-primary group">
               <BookOpen className="w-8 h-8 group-hover:rotate-12 transition-transform" />
               <span className="font-display font-bold text-2xl tracking-tight text-foreground">
-                PageTurn<span className="text-primary">.</span>
+                EzPustak<span className="text-primary">.</span>
               </span>
             </Link>
 
@@ -110,13 +110,13 @@ export function Layout({ children }: { children: React.ReactNode }) {
             <div className="col-span-1 md:col-span-2">
               <Link href="/" className="flex items-center gap-2 text-background mb-4">
                 <BookOpen className="w-8 h-8 text-primary" />
-                <span className="font-display font-bold text-2xl tracking-tight">PageTurn<span className="text-primary">.</span></span>
+                <span className="font-display font-bold text-2xl tracking-tight">EzPustak<span className="text-primary">.</span></span>
               </Link>
               <p className="text-background/60 max-w-sm mb-6 leading-relaxed">
                 We are a small Indian startup passionate about making books accessible and affordable. Every book deserves a second life. Find your next great read with us.
               </p>
               <div className="text-sm font-medium text-primary">
-                Follow us on Instagram @pageturnindia
+                Follow us on Instagram @ezpustak
               </div>
             </div>
             
@@ -141,7 +141,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
           </div>
           
           <div className="border-t border-background/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-background/40">
-            <p>© 2025 PageTurn Books. All rights reserved.</p>
+            <p>© 2025 EzPustak. All rights reserved.</p>
             <Link href="/admin/login" className="hover:text-background/60">Admin Login</Link>
           </div>
         </div>

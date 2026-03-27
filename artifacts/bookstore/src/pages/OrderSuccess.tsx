@@ -22,7 +22,7 @@ export default function OrderSuccess() {
             <h1 className="font-display text-3xl font-bold text-foreground mb-4">Order Successful!</h1>
             
             <p className="text-muted-foreground mb-8 text-lg">
-              Thank you for shopping with PageTurn. Your order has been received and is being processed.
+              Thank you for shopping with EzPustak. Your order has been received and is being processed.
             </p>
 
             <div className="bg-secondary/40 border border-secondary rounded-2xl p-6 mb-8 text-left flex items-start gap-4">

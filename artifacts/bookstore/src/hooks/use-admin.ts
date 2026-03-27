@@ -17,7 +17,7 @@ export const useAdmin = create<AdminState>()(
       logout: () => set({ isAuthenticated: false, adminPassword: null }),
     }),
     {
-      name: 'pageturn-admin-storage',
+      name: 'ezpustak-admin-storage',
     }
   )
 );
