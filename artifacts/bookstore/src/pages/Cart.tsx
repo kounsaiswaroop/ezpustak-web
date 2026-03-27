@@ -1,5 +1,5 @@
 import { Link } from "wouter";
-import { Trash2, ArrowRight } from "lucide-react";
+import { Trash2, ArrowRight, ShieldCheck } from "lucide-react";
 import { Layout } from "@/components/Layout";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/hooks/use-cart";
