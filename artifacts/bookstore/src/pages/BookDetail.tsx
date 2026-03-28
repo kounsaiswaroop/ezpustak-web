@@ -114,7 +114,7 @@ export default function BookDetail() {
             </div>
 
             <div className="prose prose-stone max-w-none mb-10 text-foreground/80 leading-relaxed">
-              <p>{book.description || "No description provided for this book."}</p>
+              <p className="whitespace-pre-line">{(book.description || "No description provided for this book.").split(/(https?:\/\/[^\s]+)/g).map((part, i) => /^https?:\/\//.test(part) ? <a key={i} href={part} target="_blank" rel="noopener noreferrer" className="text-primary underline break-all">{part}</a> : part)}</p>
             </div>
 
             <div className="mt-auto bg-card border border-border/80 rounded-2xl p-6 shadow-sm">
