@@ -192,7 +192,7 @@ export default function Checkout() {
               
               <div className="flex items-center justify-center gap-2 text-xs text-muted-foreground bg-secondary/50 p-3 rounded-lg">
                 <ShieldCheck className="w-4 h-4 text-emerald-600" /> 
-                Your information is safely stored for delivery.
+                You will be contacted for payment within 24 hours. A payment link will be shared on your email and phone number provided above.
               </div>
             </div>
           </div>
