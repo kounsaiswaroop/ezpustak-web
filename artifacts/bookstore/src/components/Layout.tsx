@@ -35,6 +35,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
             <nav className="hidden md:flex items-center gap-8">
               <Link href="/" className="text-sm font-semibold text-foreground/80 hover:text-primary transition-colors">Home</Link>
               <Link href="/shop" className="text-sm font-semibold text-foreground/80 hover:text-primary transition-colors">Shop Books</Link>
+		<a href="https://tally.so/r/WOPZPk" target="_blank" rel="noopener noreferrer" className="text-sm font-semibold bg-primary text-primary-foreground px-4 py-2 rounded-full hover:opacity-90 transition-opacity">Sell Your Books</a>
               
               <form onSubmit={handleSearch} className="relative group">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground group-focus-within:text-primary transition-colors" />
@@ -93,6 +94,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
             <div className="flex flex-col gap-2">
               <Link href="/" onClick={() => setIsMenuOpen(false)} className="p-3 rounded-xl font-medium hover:bg-muted">Home</Link>
               <Link href="/shop" onClick={() => setIsMenuOpen(false)} className="p-3 rounded-xl font-medium hover:bg-muted">Shop Books</Link>
+              <a href="https://tally.so/r/WOPZPk" target="_blank" rel="noopener noreferrer" onClick={() => setIsMenuOpen(false)} className="p-3 rounded-xl font-medium hover:bg-muted block">Sell Your Books</a>
             </div>
           </div>
         )}
@@ -132,10 +134,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
             <div>
               <h4 className="font-display font-bold text-lg text-background mb-4">Store Policies</h4>
               <ul className="space-y-3">
-                <li><button className="hover:text-primary transition-colors text-left" onClick={() => window.open('#', '_blank')}>Return Policy</button></li>
-                <li><button className="hover:text-primary transition-colors text-left" onClick={() => window.open('#', '_blank')}>Privacy Policy</button></li>
-                <li><button className="hover:text-primary transition-colors text-left" onClick={() => window.open('#', '_blank')}>Terms of Service</button></li>
-                <li><button className="hover:text-primary transition-colors text-left" onClick={() => window.open('#', '_blank')}>Shipping Policy</button></li>
+                <li><button className="hover:text-primary transition-colors text-left" href="https://www.notion.so/ezpustak/32f7669560f4802aa4d6f7a141d43222" target="_blank" rel="noopener noreferrer">Return Policy</button></li>
+                <li><button className="hover:text-primary transition-colors text-left" href="https://www.notion.so/ezpustak/32f7669560f4802aa4d6f7a141d43222" target="_blank" rel="noopener noreferrer">Privacy Policy</button></li>
+                <li><button className="hover:text-primary transition-colors text-left" href="https://www.notion.so/ezpustak/32f7669560f4802aa4d6f7a141d43222" target="_blank" rel="noopener noreferrer">Terms of Service</button></li>
+                <li><button className="hover:text-primary transition-colors text-left" href="https://www.notion.so/ezpustak/32f7669560f4802aa4d6f7a141d43222" target="_blank" rel="noopener noreferrer">Shipping Policy</button></li>
               </ul>
             </div>
           </div>
