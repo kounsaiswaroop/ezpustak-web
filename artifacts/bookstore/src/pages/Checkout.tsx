@@ -187,7 +187,7 @@ export default function Checkout() {
                 className="w-full h-14 text-lg mb-4" 
                 isLoading={isPending}
               >
-                {isPending ? "Processing..." : "Place Order (Cash on Delivery)"}
+                {isPending ? "Processing..." : "Place Order"}
               </Button>
               
               <div className="flex items-center justify-center gap-2 text-xs text-muted-foreground bg-secondary/50 p-3 rounded-lg">
