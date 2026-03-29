@@ -118,7 +118,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
                 We are a small Indian startup passionate about making books accessible and affordable. Every book deserves a second life. Find your next great read with us.
               </p>
               <div className="text-sm font-medium text-primary">
-                Follow us on Instagram @ezpustak
+                <a href="https://instagram.com/ezpustak" target="_blank" rel="noopener noreferrer" className="text-sm font-medium text-primary hover:underline"><a href="https://instagram.com/ezpustak" target="_blank" rel="noopener noreferrer" className="text-sm font-medium text-primary hover:underline block mb-2">Instagram @ezpustak</a><a href="https://youtube.com/@ezpustak" target="_blank" rel="noopener noreferrer" className="text-sm font-medium text-primary hover:underline block">YouTube @ezpustak</a></a>
               </div>
             </div>
             
@@ -128,6 +128,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
                 <li><Link href="/" className="hover:text-primary transition-colors">Home</Link></li>
                 <li><Link href="/shop" className="hover:text-primary transition-colors">Shop</Link></li>
                 <li><Link href="/cart" className="hover:text-primary transition-colors">Cart</Link></li>
+                <li><a href="https://tally.so/r/WOPZPk" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">Sell Your Books</a></li>
               </ul>
             </div>
 
