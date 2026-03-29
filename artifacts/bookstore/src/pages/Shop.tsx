@@ -7,16 +7,17 @@ import { Filter, Search, X } from "lucide-react";
 
 export default function Shop() {
   const [location] = useLocation();
-  
+
   // Parse query params manually since wouter's useLocation doesn't provide them parsed
   const searchParams = new URLSearchParams(window.location.search);
   const categoryParam = searchParams.get('category');
   const searchParam = searchParams.get('search');
-  
+
   const [activeCategoryId, setActiveCategoryId] = useState<number | null>(
     categoryParam ? parseInt(categoryParam) : null
   );
   const [searchQuery, setSearchQuery] = useState(searchParam || "");
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
 
   // API Calls
   const { data: books, isLoading: isLoadingBooks } = useListBooks({
@@ -56,44 +57,47 @@ export default function Shop() {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col md:flex-row gap-8 items-start">
-        
+
         {/* Sidebar Filters */}
-        <aside className="w-full md:w-64 flex-shrink-0 sticky top-28">
-          <div className="bg-card border border-border/60 rounded-2xl p-6 shadow-sm">
-            <div className="flex items-center gap-2 mb-6 pb-4 border-b border-border">
-              <Filter className="w-5 h-5 text-primary" />
-              <h3 className="font-bold text-lg">Filters</h3>
-            </div>
-            
-            <div className="mb-6">
-              <h4 className="font-semibold text-sm text-muted-foreground uppercase tracking-wider mb-4">Categories</h4>
-              <div className="flex flex-col gap-2">
-                <button
-                  onClick={() => handleCategorySelect(null)}
-                  className={`text-left px-3 py-2 rounded-lg text-sm transition-colors ${
-                    activeCategoryId === null 
-                      ? 'bg-primary/10 text-primary font-semibold' 
-                      : 'text-foreground hover:bg-muted'
-                  }`}
-                >
-                  All Books
-                </button>
-                {categories?.map((cat) => (
-                  <button
-                    key={cat.id}
-                    onClick={() => handleCategorySelect(cat.id)}
-                    className={`text-left px-3 py-2 rounded-lg text-sm transition-colors ${
-                      activeCategoryId === cat.id 
-                        ? 'bg-primary/10 text-primary font-semibold' 
-                        : 'text-foreground hover:bg-muted'
-                    }`}
-                  >
-                    {cat.name}
-                  </button>
-                ))}
+        <aside className="w-full md:w-64 flex-shrink-0 md:sticky md:top-28">
+          <div className="bg-card border border-border/60 rounded-2xl shadow-sm overflow-hidden">
+            <button onClick={() => setIsFilterOpen(!isFilterOpen)} className="w-full flex items-center justify-between p-6 md:hidden">
+              <div className="flex items-center gap-2"><Filter className="w-5 h-5 text-primary" /><h3 className="font-bold text-lg">Filters</h3></div>
+              <X className={`w-5 h-5 transition-transform ${isFilterOpen ? '' : 'rotate-45'}`} />
+            </button>
+            <div className={`p-6 pt-0 md:block md:pt-6 ${isFilterOpen ? 'block' : 'hidden'}`}>
+              <div className="flex items-center gap-2 mb-6 pb-4 border-b border-border">
+                <Filter className="w-5 h-5 text-primary" />
+                <h3 className="font-bold text-lg">Filters</h3>
               </div>
-            </div>
-          </div>
+
+              <div className="mb-6">
+                <h4 className="font-semibold text-sm text-muted-foreground uppercase tracking-wider mb-4">Categories</h4>
+                <div className="flex flex-col gap-2">
+                  <button
+                    onClick={() => handleCategorySelect(null)}
+                    className={`text-left px-3 py-2 rounded-lg text-sm transition-colors ${activeCategoryId === null
+                        ? 'bg-primary/10 text-primary font-semibold'
+                        : 'text-foreground hover:bg-muted'
+                      }`}
+                  >
+                    All Books
+                  </button>
+                  {categories?.map((cat) => (
+                    <button
+                      key={cat.id}
+                      onClick={() => handleCategorySelect(cat.id)}
+                      className={`text-left px-3 py-2 rounded-lg text-sm transition-colors ${activeCategoryId === cat.id
+                          ? 'bg-primary/10 text-primary font-semibold'
+                          : 'text-foreground hover:bg-muted'
+                        }`}
+                    >
+                      {cat.name}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div></div>
         </aside>
 
         {/* Main Content */}
@@ -120,7 +124,7 @@ export default function Shop() {
           {/* Grid */}
           {isLoadingBooks ? (
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
-              {[1,2,3,4,5,6].map(i => (
+              {[1, 2, 3, 4, 5, 6].map(i => (
                 <div key={i} className="bg-card rounded-2xl p-4 border border-border h-80 animate-pulse"></div>
               ))}
             </div>
@@ -139,7 +143,7 @@ export default function Shop() {
               <p className="text-muted-foreground max-w-md">
                 We couldn't find any books matching your current filters. Try changing categories or clearing your search.
               </p>
-              <button 
+              <button
                 onClick={() => { handleCategorySelect(null); handleSearchClear(); }}
                 className="mt-6 text-primary font-semibold hover:underline"
               >
