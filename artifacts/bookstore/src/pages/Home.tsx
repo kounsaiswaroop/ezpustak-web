@@ -25,7 +25,14 @@ export default function Home() {
 
   const featuredBooks = books?.slice(0, 8) || [];
   const topCategories = categories?.slice(0, 8) || [];
-  const dealsBooks = books?.filter(b => b.originalPrice && b.originalPrice > b.price).slice(0, 4) || [];
+  const dealsBooks = books
+  ?.filter(b => b.originalPrice && b.originalPrice > b.price)
+  .sort((a, b) => {
+    const discountA = ((a.originalPrice! - a.price) / a.originalPrice!) * 100;
+    const discountB = ((b.originalPrice! - b.price) / b.originalPrice!) * 100;
+    return discountB - discountA;
+  })
+  .slice(0, 4) || [];
 
   return (
     <Layout>
