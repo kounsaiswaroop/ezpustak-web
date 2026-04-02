@@ -290,8 +290,13 @@ export const deleteCategory = async (
   return customFetch<void>(getDeleteCategoryUrl(id), {
     ...options,
     method: "DELETE",
+    headers: {
+      ...((options as any)?.headers || {}),
+      "x-admin-password": localStorage.getItem("adminPassword") || "",
+    },
   });
 };
+
 
 export const getDeleteCategoryMutationOptions = <
   TError = ErrorType<ErrorResponse>,
